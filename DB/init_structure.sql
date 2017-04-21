@@ -34,7 +34,7 @@ CREATE TABLE `events` (
   `timeFrom` TIME NOT NULL ,
   `dateTo` DATE NOT NULL ,
   `timeTo` TIME NOT NULL ,
-  `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+  `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `userId` INT(5) NOT NULL ,
   `status` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
   `color` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
