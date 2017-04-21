@@ -6,14 +6,10 @@ class Site extends MY_Controller {
     }
 
     public function index() {
-        if(is_null($this->_userId)) {
-           $this->_HTMLResponse([
-               'view' => 'pages/login',
-               'data' => []
-           ]);
-        } else {
-            echo $this->_userId;
-        }
+        $this->_HTMLResponse([
+            'view' => is_null($this->_userId) ? 'pages/login' : 'pages/calendar',
+            'data' => []
+        ]);
     }
 }
 ?>
