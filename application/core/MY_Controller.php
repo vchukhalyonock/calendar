@@ -7,8 +7,10 @@ class MY_Controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
 
-        if(!$this->_checkAuth() && $this->uri->rsegment(1) != 'site' && $this->uri->rsegment(2) != 'index')
-            redirect('/');
+        if($this->uri->rsegment(1) != 'auth') {
+            if (!$this->_checkAuth() && $this->uri->rsegment(1) != 'site' && $this->uri->rsegment(2) != 'index')
+                redirect('/');
+        }
     }
 
     private function _checkAuth() {

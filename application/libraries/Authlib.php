@@ -12,7 +12,7 @@ class Authlib {
 
     public function verify($email, $password) {
         try {
-            $res = $this->db
+            $res = $this->_CI->db
                 ->select("id")
                 ->from($this->_table)
                 ->where([
@@ -35,7 +35,7 @@ class Authlib {
 
     public function getByCode($code) {
         try {
-            $res = $this->db
+            $res = $this->_CI->db
                 ->select("id")
                 ->from($this->_table)
                 ->where('registrationCode', strval($code))

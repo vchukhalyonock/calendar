@@ -11,6 +11,8 @@ class Site extends MY_Controller {
                'view' => 'pages/login',
                'data' => []
            ]);
+        } else {
+            echo $this->_userId;
         }
     }
 }
