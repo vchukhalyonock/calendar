@@ -6,7 +6,12 @@ class Site extends MY_Controller {
     }
 
     public function index() {
-
+        if(is_null($this->_userId)) {
+           $this->_HTMLResponse([
+               'view' => 'pages/login',
+               'data' => []
+           ]);
+        }
     }
 }
 ?>

@@ -1,8 +1,8 @@
 <?php
 class MY_Controller extends CI_Controller {
 
-    protected $_userId;
-    protected $_userType;
+    protected $_userId = null;
+    protected $_userType = null;
 
     public function __construct() {
         parent::__construct();
@@ -12,7 +12,7 @@ class MY_Controller extends CI_Controller {
     }
 
     private function _checkAuth() {
-        $user = $this->Authlib->getCurrentUser();
+        $user = $this->authlib->getCurrentUser();
         if($user) {
             $this->_userId = $user['id'];
             $this->_userType = $user['info']['type'];
@@ -20,6 +20,11 @@ class MY_Controller extends CI_Controller {
         } else {
             return false;
         }
+    }
+
+    protected function _HTMLResponse($param = array('view' => '', 'data' => array()))
+    {
+        $this->load->view('index', $param);
     }
 }
 ?>
