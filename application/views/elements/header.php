@@ -17,8 +17,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script
-            src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <link rel='stylesheet' href='<?php echo base_url()?>fullcalendar/fullcalendar.css' />
+    <link rel='stylesheet' href='<?php echo base_url()?>css/bootstrap-datetimepicker.css' />
+    <link rel='stylesheet' href='<?php echo base_url()?>css/bootstrap-colorpicker.css' />
+    <!--<script src='<?php echo base_url()?>fullcalendar/lib/jquery.min.js' defer></script>-->
+    <script src='<?php echo base_url()?>fullcalendar/lib/moment.min.js' defer></script>
+    <script src='<?php echo base_url()?>fullcalendar/fullcalendar.js' defer></script>
 </head>
