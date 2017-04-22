@@ -150,8 +150,8 @@ class EventsModel extends MY_Model {
                 ->from($this->_eventsTable)
                 ->where([
                     'userId' => intval($userId),
-                    'dateFrom' => strval($dateFrom),
-                    'dateTo' => strval($dateTo)
+                    'dateFrom >=' => strval($dateFrom),
+                    'dateTo <=' => strval($dateTo)
                 ])
                 ->get();
         } catch (Exception $e) {

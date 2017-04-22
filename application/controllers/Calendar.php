@@ -53,5 +53,21 @@ class Calendar extends MY_Controller {
 
         $this->_ajaxResponse($response);
     }
+
+
+    public function getEvents() {
+        if(!$this->input->is_ajax_request())
+            redirect('/');
+
+        $dateFrom = $this->input->post("startDate", true);
+        $dateTo = $this->input->post("endDate", true);
+
+        $events = $this->EventsModel->getEvents($this->_userId, $dateFrom, $dateTo);
+
+        $this->_ajaxResponse([
+            'status' => true,
+            'events' => $events
+        ]);
+    }
 }
 ?>

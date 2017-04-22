@@ -32,8 +32,8 @@ $(document).ready(function() {
                                 events : [
                                     {
                                         title : data.event.name,
-                                        start : data.event.dateFrom,
-                                        end : data.event.dateTo
+                                        start : data.event.dateFrom + ' ' + data.event.timeFrom,
+                                        end : data.event.dateTo + ' ' + data.event.timeTo
                                     }
                                 ],
                                 color : data.event.color
@@ -56,6 +56,7 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+        editable: true,
         dayClick: function(date) {
             //alert('Clicked on: ' + date.format());
             //Format is YYYY-MM-DDTHH:MM:SS
@@ -64,6 +65,38 @@ $(document).ready(function() {
             $('#datetimepickerFrom').data("DateTimePicker").date(date);
             $('#datetimepickerTo').data("DateTimePicker").date(date);
 
+        },
+        eventDragStop : function (event) {
+
+        },
+        eventResizeStop : function (event) {
+
+        },
+        events : function (start, end, timezone, callback) {
+            $.ajax({
+                url : '/calendar/getEvents',
+                method : 'post',
+                dataType : "json",
+                data : {
+                    startDate : start.format(),
+                    endDate : end.format()
+                },
+                success : function(eventData) {
+                    var events = [];
+
+                    if(eventData.status) {
+                        $.map(eventData.events, function (r) {
+                            events.push({
+                                id: r.id,
+                                title: r.title,
+                                start: r.dateFrom + ' ' + r.timeFrom,
+                                end: r.dateTo + ' ' + r.timeTo
+                            });
+                        });
+                    }
+                    callback(events);
+                }
+            });
         }
     })
 
