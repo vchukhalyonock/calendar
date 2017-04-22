@@ -11,8 +11,18 @@ $(document).ready(function() {
 
     $('#eventForm').validator().on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
+            var url;
+            var id = null;
+            if($('#eventId')) {
+                id = $('#eventId').val();
+                url = '/calendar/updateEvent/' + id;
+                $('#eventId').remove();
+            } else {
+                url = '/calendar/createEvent';
+            }
+
             $.ajax({
-                url : '/calendar/createEvent',
+                url : url,
                 dataType : "json",
                 method : "post",
                 data : {
@@ -26,6 +36,13 @@ $(document).ready(function() {
                 success : function (data) {
                     $('#myModal').modal("hide");
                     if(data.status) {
+                        if(id != null) {
+                            $('#calendar').fullCalendar(
+                                'removeEvents',
+                                id
+                            );
+                        }
+
                         $('#calendar').fullCalendar(
                             'addEventSource',
                             {
@@ -34,7 +51,9 @@ $(document).ready(function() {
                                         id : data.event.id,
                                         title : data.event.name,
                                         start : data.event.dateFrom + ' ' + data.event.timeFrom,
-                                        end : data.event.dateTo + ' ' + data.event.timeTo
+                                        end : data.event.dateTo + ' ' + data.event.timeTo,
+                                        description : data.event.description,
+                                        status : data.event.status
                                     }
                                 ],
                                 color : data.event.color
@@ -61,6 +80,7 @@ $(document).ready(function() {
             //alert('Clicked on: ' + date.format());
             //Format is YYYY-MM-DDTHH:MM:SS
 
+            $('#eventForm')[0].reset();
             $('#myModal').modal();
             $('#datetimepickerFrom').data("DateTimePicker").date(date);
             $('#datetimepickerTo').data("DateTimePicker").date(date);
@@ -111,15 +131,28 @@ $(document).ready(function() {
                         $.map(eventData.events, function (r) {
                             events.push({
                                 id: r.id,
-                                title: r.title,
+                                title: r.name,
                                 start: r.dateFrom + ' ' + r.timeFrom,
-                                end: r.dateTo + ' ' + r.timeTo
+                                end: r.dateTo + ' ' + r.timeTo,
+                                description: r.description,
+                                status : r.status,
+                                color : r.color
                             });
                         });
                     }
                     callback(events);
                 }
             });
+        },
+        eventClick : function (event) {
+            $('#myModal').modal();
+            $('#eventForm').append('<input  type="hidden" name="id" id="eventId" value="' + event.id + '"/>');
+            $('#datetimepickerFrom').data("DateTimePicker").date(event.start);
+            $('#datetimepickerTo').data("DateTimePicker").date(event.end);
+            $('#eventName').val(event.title);
+            $('#eventDescription').val(event.description);
+            $('#eventStatus').val(event.status);
+            $('#eventColor').val(event.color);
         }
     })
 

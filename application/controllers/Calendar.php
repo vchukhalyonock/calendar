@@ -36,8 +36,6 @@ class Calendar extends MY_Controller {
             'userId' => $this->_userId
         ];
 
-        log_message("debug", print_r($params, true));
-
         $eventId = $this->EventsModel->create($params);
         if($eventId) {
             $response = [
@@ -59,18 +57,45 @@ class Calendar extends MY_Controller {
         if(!$this->input->is_ajax_request())
             redirect("/");
 
-        $start = $this->input->post("start", true);
-        $end = $this->input->post("end", true);
+        if($this->input->post("start") && $this->input->post("end")) {
+            $start = $this->input->post("start", true);
+            $end = $this->input->post("end", true);
 
-        $startSplit = explode("T", $start);
-        $endSplit = explode("T", $end);
+            $startSplit = explode("T", $start);
+            $endSplit = explode("T", $end);
 
-        $params = [
-            'dateFrom' => $startSplit[0],
-            'dateTo' => $endSplit[0],
-            'timeFrom' => $startSplit[1],
-            'timeTo' => $endSplit[1]
-        ];
+            $params = [
+                'dateFrom' => $startSplit[0],
+                'dateTo' => $endSplit[0],
+                'timeFrom' => $startSplit[1],
+                'timeTo' => $endSplit[1]
+            ];
+        } else {
+            $dateTimeFrom = $this->input->post('dateTimeFrom', true);
+            $dateTimeTo = $this->input->post('dateTimeTo', true);
+
+            //03/28/2017 12:00 AM
+
+            $dateFrom = null;
+            $timeFrom = null;
+            $dateTo = null;
+            $timeTo = null;
+
+            dateTimeSplit($dateTimeFrom, $dateFrom, $timeFrom);
+            dateTimeSplit($dateTimeTo, $dateTo, $timeTo);
+
+            $params = [
+                'name' => $this->input->post('name', true),
+                'dateFrom' => $dateFrom,
+                'timeFrom' => $timeFrom,
+                'dateTo' => $dateTo,
+                'timeTo' => $timeTo,
+                'description' => $this->input->post('description', true),
+                'status' => $this->input->post('status', true),
+                'color' => $this->input->post('color', true),
+                'userId' => $this->_userId
+            ];
+        }
 
         $result = $this->EventsModel->update($id, $params);
         if($result) {
