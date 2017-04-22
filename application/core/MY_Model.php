@@ -44,15 +44,18 @@ class MY_Model extends CI_Model {
             if(isset($value['required']) && $value['required'] && !array_key_exists($key, $params))
                 throw new Exception($key . " field required");
 
-            if(isset($value['null']) && $value['null'] && is_null($params[$key]))
-                $result[$key] = null;
-            else {
-                if($value['type'] == 'string'
-                    && (!isset($value['empty']) || !$value['empty'])
-                    && trim(strval($params[$key])) == '')
+            if(isset($params[$key])) {
+                if (isset($value['null']) && $value['null'] && is_null($params[$key]))
+                    $result[$key] = null;
+                else {
+                    if ($value['type'] == 'string'
+                        && (!isset($value['empty']) || !$value['empty'])
+                        && trim(strval($params[$key])) == ''
+                    )
                         throw new Exception($key . ' fields is not be empty');
-                else
-                    $result[$key] = $this->_typeSeparator($value['type'], $params[$key]);
+                    else
+                        $result[$key] = $this->_typeSeparator($value['type'], $params[$key]);
+                }
             }
 
         }

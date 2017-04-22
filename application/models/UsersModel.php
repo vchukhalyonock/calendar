@@ -38,7 +38,7 @@ class UsersModel extends MY_Model {
         try {
             $insParams = $this->_dbValidator($params);
         } catch (Exception $e) {
-            log_message("debug", "UsersModel::create : " . $e->getMessage());
+            log_message("debug", "UsersModel::create validation : " . $e->getMessage());
             return false;
         }
 

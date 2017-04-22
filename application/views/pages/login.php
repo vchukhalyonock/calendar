@@ -1,3 +1,8 @@
+<div class="row">
+    <?php if(!is_null($error)):?>
+    <div id="infoMessage" class="alert alert-danger"><center><?php echo $error; ?></center></div>
+    <?php endif?>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -42,12 +47,15 @@
                             </form>
                             <form id="register-form" action="<?php echo base_url()?>auth/register/" method="post" role="form" style="display: none;">
                                 <div class="form-group">
+                                    <?php echo form_error('email'); ?>
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                                 </div>
                                 <div class="form-group">
+                                    <?php echo form_error('password'); ?>
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="form-group">
+                                    <?php echo form_error('confirm-password'); ?>
                                     <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
                                 </div>
                                 <div class="form-group">

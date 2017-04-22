@@ -8,7 +8,10 @@ class Site extends MY_Controller {
     public function index() {
         $this->_HTMLResponse([
             'view' => is_null($this->_userId) ? 'pages/login' : 'pages/calendar',
-            'data' => []
+            'data' => [
+                'userId' => $this->_userId,
+                'error' => $this->session->flashdata("error") ? $this->session->flashdata("error") : null
+            ]
         ]);
     }
 }
