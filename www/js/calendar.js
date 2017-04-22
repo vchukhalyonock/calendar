@@ -8,6 +8,26 @@ $(document).ready(function() {
     });
     $('#cp2').colorpicker();
 
+    $('#inviteForm').validator().on('submit', function (e) {
+        if(!e.isDefaultPrevented()) {
+            $.ajax({
+                url : '/invite/',
+                dataType : "json",
+                method : "post",
+                data : {
+                    email : $("#inviteEmail").val()
+                },
+                success : function (data) {
+
+                }
+            });
+
+            e.preventDefault();
+            $(this)[0].reset();
+            $('#inviteModal').modal("hide");
+        }
+    });
+
 
     $('#eventForm').validator().on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
