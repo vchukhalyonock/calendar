@@ -31,6 +31,7 @@ $(document).ready(function() {
                             {
                                 events : [
                                     {
+                                        id : data.event.id,
                                         title : data.event.name,
                                         start : data.event.dateFrom + ' ' + data.event.timeFrom,
                                         end : data.event.dateTo + ' ' + data.event.timeTo
@@ -39,7 +40,6 @@ $(document).ready(function() {
                                 color : data.event.color
                             }
                         );
-                        alert("success");
                     }
                 }
             });
@@ -66,8 +66,20 @@ $(document).ready(function() {
             $('#datetimepickerTo').data("DateTimePicker").date(date);
 
         },
-        eventDragStop : function (event) {
-
+        eventDrop : function (event) {
+            //alert(JSON.stringify(event));
+            $.ajax({
+                url : '/calendar/updateEvent/' + event.id,
+                method : "post",
+                dataType : "json",
+                data : {
+                    start : event.start.format(),
+                    end : event.end.format()
+                },
+                success : function () {
+                    
+                }
+            });
         },
         eventResizeStop : function (event) {
 

@@ -55,6 +55,40 @@ class Calendar extends MY_Controller {
     }
 
 
+    public function updateEvent($id) {
+        if(!$this->input->is_ajax_request())
+            redirect("/");
+
+        $start = $this->input->post("start", true);
+        $end = $this->input->post("end", true);
+
+        $startSplit = explode("T", $start);
+        $endSplit = explode("T", $end);
+
+        $params = [
+            'dateFrom' => $startSplit[0],
+            'dateTo' => $endSplit[0],
+            'timeFrom' => $startSplit[1],
+            'timeTo' => $endSplit[1]
+        ];
+
+        $result = $this->EventsModel->update($id, $params);
+        if($result) {
+            $response = [
+                'status' => true,
+                'event' => $this->EventsModel->get($id)
+            ];
+        } else {
+            $response = [
+                'status' => false,
+                'event' => $params
+            ];
+        }
+
+        $this->_ajaxResponse($response);
+    }
+
+
     public function getEvents() {
         if(!$this->input->is_ajax_request())
             redirect('/');
