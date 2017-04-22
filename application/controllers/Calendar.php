@@ -4,13 +4,12 @@ class Calendar extends MY_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model("EventsModel");
+        if(!$this->input->is_ajax_request())
+            redirect('/');
     }
 
 
     public function createEvent() {
-        if(!$this->input->is_ajax_request())
-            redirect("/");
-
         $dateTimeFrom = $this->input->post('dateTimeFrom', true);
         $dateTimeTo = $this->input->post('dateTimeTo', true);
 
@@ -54,8 +53,6 @@ class Calendar extends MY_Controller {
 
 
     public function updateEvent($id) {
-        if(!$this->input->is_ajax_request())
-            redirect("/");
 
         if($this->input->post("start") && $this->input->post("end")) {
             $start = $this->input->post("start", true);
@@ -115,8 +112,6 @@ class Calendar extends MY_Controller {
 
 
     public function getEvents() {
-        if(!$this->input->is_ajax_request())
-            redirect('/');
 
         $dateFrom = $this->input->post("startDate", true);
         $dateTo = $this->input->post("endDate", true);
@@ -127,6 +122,18 @@ class Calendar extends MY_Controller {
             'status' => true,
             'events' => $events
         ]);
+    }
+
+
+    public function delete($id) {
+        $result = $this->EventsModel->delete($id);
+        if($result) {
+            $response = ['status' => true];
+        } else {
+            $response = ['status' => false];
+        }
+
+        $this->_ajaxResponse($response);
     }
 }
 ?>

@@ -68,6 +68,32 @@ $(document).ready(function() {
         }
     });
 
+    $('#deleteEvent').click(function (e) {
+       var result = confirm("Are you sure?");
+       if(result) {
+           var id = null;
+           if($('#eventId')) {
+               id = $('#eventId').val();
+               $('#eventId').remove();
+               $.ajax({
+                   url : '/calendar/delete/' + id,
+                   method : "post",
+                   dataType : "json",
+                   success : function (data) {
+                       if(data.status) {
+                           $('#calendar').fullCalendar(
+                               'removeEvents',
+                               id
+                           );
+                       }
+                   }
+               });
+           };
+
+           $('#myModal').modal("hide");
+       }
+    });
+
     $('#calendar').fullCalendar({
         // put your options and callbacks here
         header: {
@@ -81,6 +107,7 @@ $(document).ready(function() {
             //Format is YYYY-MM-DDTHH:MM:SS
 
             $('#eventForm')[0].reset();
+            $('#deleteEvent').addClass("hidden");
             $('#myModal').modal();
             $('#datetimepickerFrom').data("DateTimePicker").date(date);
             $('#datetimepickerTo').data("DateTimePicker").date(date);
@@ -146,6 +173,7 @@ $(document).ready(function() {
         },
         eventClick : function (event) {
             $('#myModal').modal();
+            $('#deleteEvent').removeClass("hidden");
             $('#eventForm').append('<input  type="hidden" name="id" id="eventId" value="' + event.id + '"/>');
             $('#datetimepickerFrom').data("DateTimePicker").date(event.start);
             $('#datetimepickerTo').data("DateTimePicker").date(event.end);
