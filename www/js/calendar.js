@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+    $('#datetimepickerFrom').datetimepicker();
+    $('#datetimepickerTo').datetimepicker();
+    $('#cp2').colorpicker();
+
+    /*$('#submitEvent').click(function (event) {
+        $('#myModal').modal("hide");
+
+    });*/
+
     // page is now ready, initialize the calendar...
 
     $('#calendar').fullCalendar({
@@ -12,10 +21,11 @@ $(document).ready(function() {
         dayClick: function(date) {
             //alert('Clicked on: ' + date.format());
             //Format is YYYY-MM-DDTHH:MM:SS
+
             $('#myModal').modal();
-            $('#datetimepickerFrom').datetimepicker();
-            $('#datetimepickerTo').datetimepicker();
-            $('#cp2').colorpicker();
+            $('#datetimepickerFrom').data("DateTimePicker").date(date);
+            $('#datetimepickerTo').data("DateTimePicker").date(date);
+
         }
     })
 

@@ -15,10 +15,10 @@
                 <h4 class="modal-title">Edit event</h4>
             </div>
             <div class="modal-body">
-                <form name="event-form">
+                <form name="event-form" data-toggle="validator">
                     <div class="form-group">
                         <label for="name">Event Name:</label>
-                        <input type="text" class="form-control" id="eventName" name="name">
+                        <input type="text" class="form-control" id="eventName" name="name" required>
                     </div>
 
                     <div class="container">
@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label for="dateTimeFrom">From:</label>
                                     <div class='input-group date' id='datetimepickerFrom'>
-                                        <input type='text' class="form-control" id="dateTimeFrom" name="dateTimeFrom"/>
+                                        <input type='text' class="form-control" id="dateTimeFrom" name="dateTimeFrom" required/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label for="dateTimeTo">To:</label>
                                     <div class='input-group date' id='datetimepickerTo'>
-                                        <input type='text' class="form-control" name="dateTimeTo" id="dateTimeTo"/>
+                                        <input type='text' class="form-control" name="dateTimeTo" id="dateTimeTo" required/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -61,7 +61,7 @@
                             <div class='col-sm-3'>
                                 <label for="eventColor">Color:</label>
                                 <div id="cp2" class="input-group colorpicker-component">
-                                    <input type="text" value="#00AABB" name="color" id="eventColor" class="form-control"/>
+                                    <input type="text" value="#00AABB" name="color" id="eventColor" class="form-control" required/>
                                     <span class="input-group-addon"><i></i></span>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default">Submit</button>
+                        <button type="submit" class="btn btn-default" id="submitEvent">Submit</button>
                     </div>
                 </form>
             </div>

@@ -6,3 +6,4 @@
 <script src="<?php echo base_url()?>js/collapse.js" defer></script>
 <script src="<?php echo base_url()?>js/bootstrap-datetimepicker.min.js" defer></script>
 <script src="<?php echo base_url()?>js/bootstrap-colorpicker.min.js" defer></script>
+<script src="<?php echo base_url()?>js/validator.js" defer></script>
