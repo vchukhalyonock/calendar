@@ -77,12 +77,23 @@ $(document).ready(function() {
                     end : event.end.format()
                 },
                 success : function () {
-                    
+
                 }
             });
         },
-        eventResizeStop : function (event) {
+        eventResize : function (event) {
+            $.ajax({
+                url : '/calendar/updateEvent/' + event.id,
+                method : "post",
+                dataType : "json",
+                data : {
+                    start : event.start.format(),
+                    end : event.end.format()
+                },
+                success : function () {
 
+                }
+            });
         },
         events : function (start, end, timezone, callback) {
             $.ajax({
