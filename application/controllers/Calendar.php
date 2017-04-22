@@ -11,23 +11,38 @@ class Calendar extends MY_Controller {
         if(!$this->input->is_ajax_request())
             redirect("/");
 
+        $dateTimeFrom = $this->input->post('dateTimeFrom', true);
+        $dateTimeTo = $this->input->post('dateTimeTo', true);
+
+        //03/28/2017 12:00 AM
+
+        $dateFrom = null;
+        $timeFrom = null;
+        $dateTo = null;
+        $timeTo = null;
+
+        dateTimeSplit($dateTimeFrom, $dateFrom, $timeFrom);
+        dateTimeSplit($dateTimeTo, $dateTo, $timeTo);
+
         $params = [
             'name' => $this->input->post('name', true),
-            'dateFrom' => $this->input->post('dateFrom', true),
-            'timeFrom' => $this->input->post('timeFrom', true),
-            'dateTo' => $this->input->post('dateTo', true),
-            'timeTo' => $this->input->post('timeTo', true),
+            'dateFrom' => $dateFrom,
+            'timeFrom' => $timeFrom,
+            'dateTo' => $dateTo,
+            'timeTo' => $timeTo,
             'description' => $this->input->post('description', true),
             'status' => $this->input->post('status', true),
             'color' => $this->input->post('color', true),
             'userId' => $this->_userId
         ];
 
+        log_message("debug", print_r($params, true));
+
         $eventId = $this->EventsModel->create($params);
         if($eventId) {
             $response = [
                 'status' => true,
-                'event' => $this->EventsModel->get($eventId);
+                'event' => $this->EventsModel->get($eventId)
             ];
         } else {
             $response = [

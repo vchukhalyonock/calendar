@@ -15,7 +15,7 @@
                 <h4 class="modal-title">Edit event</h4>
             </div>
             <div class="modal-body">
-                <form name="event-form" data-toggle="validator">
+                <form name="event-form" data-toggle="validator" id="eventForm">
                     <div class="form-group">
                         <label for="name">Event Name:</label>
                         <input type="text" class="form-control" id="eventName" name="name" required>
@@ -53,6 +53,11 @@
                     <div class="form-group">
                         <label for="description">Description:</label>
                         <textarea rows="5" class="form-control" name="description" id="eventDescription"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventStatus">Event Status:</label>
+                        <input type="text" class="form-control" id="eventStatus" name="status" required>
                     </div>
 
                     <div class="form-group">

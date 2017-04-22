@@ -50,7 +50,7 @@ class EventsModel extends MY_Model {
         try {
             $insParams = $this->_dbValidator($params);
         } catch (Exception $e) {
-            log_message("debug", "EventsModel::create : " . $e->getMessage());
+            log_message("debug", "EventsModel::create validator : " . $e->getMessage());
             return false;
         }
 

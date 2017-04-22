@@ -1,15 +1,53 @@
 $(document).ready(function() {
 
-    $('#datetimepickerFrom').datetimepicker();
-    $('#datetimepickerTo').datetimepicker();
+    $('#datetimepickerFrom').datetimepicker({
+        format : "DD/MM/YYYY HH:mm"
+    });
+    $('#datetimepickerTo').datetimepicker({
+        format : "DD/MM/YYYY HH:mm"
+    });
     $('#cp2').colorpicker();
 
-    /*$('#submitEvent').click(function (event) {
-        $('#myModal').modal("hide");
 
-    });*/
+    $('#eventForm').validator().on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+            $.ajax({
+                url : '/calendar/createEvent',
+                dataType : "json",
+                method : "post",
+                data : {
+                    name : $('#eventName').val(),
+                    dateTimeFrom : $('#dateTimeFrom').val(),
+                    dateTimeTo : $('#dateTimeTo').val(),
+                    description : $('#eventDescription').val(),
+                    status : $('#eventStatus').val(),
+                    color : $('#eventColor').val()
+                },
+                success : function (data) {
+                    $('#myModal').modal("hide");
+                    if(data.status) {
+                        $('#calendar').fullCalendar(
+                            'addEventSource',
+                            {
+                                events : [
+                                    {
+                                        title : data.event.name,
+                                        start : data.event.dateFrom,
+                                        end : data.event.dateTo
+                                    }
+                                ],
+                                color : data.event.color
+                            }
+                        );
+                        alert("success");
+                    }
+                }
+            });
 
-    // page is now ready, initialize the calendar...
+            e.preventDefault();
+            $(this)[0].reset();
+        }
+    });
 
     $('#calendar').fullCalendar({
         // put your options and callbacks here

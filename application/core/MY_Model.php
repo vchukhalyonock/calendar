@@ -41,7 +41,7 @@ class MY_Model extends CI_Model {
 
         foreach ($this->_dataScheme as $key => $value) {
 
-            if($value['required'] && !array_key_exists($key, $params))
+            if(isset($value['required']) && $value['required'] && !array_key_exists($key, $params))
                 throw new Exception($key . " field required");
 
             if(isset($value['null']) && $value['null'] && is_null($params[$key]))
