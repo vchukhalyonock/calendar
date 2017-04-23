@@ -7,3 +7,7 @@
 <script src="<?php echo base_url()?>js/bootstrap-datetimepicker.min.js" defer></script>
 <script src="<?php echo base_url()?>js/bootstrap-colorpicker.min.js" defer></script>
 <script src="<?php echo base_url()?>js/validator.js" defer></script>
+<script src='https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js' defer></script>
+<script src='https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js' defer></script>
+<script src='https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js' defer></script>
+<script src='https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js' defer></script>

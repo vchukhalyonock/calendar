@@ -245,4 +245,9 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+
+    $('#manageUsersTable').dataTable({
+        ajax : '/users/'
+    });
+
 });

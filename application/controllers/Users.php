@@ -1,26 +1,42 @@
 <?php
-class Profile extends MY_Controller {
+class Users extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
         $this->_checkAjax();
+
         $this->load->model("UsersModel");
     }
 
 
     public function index() {
+        $users = $this->UsersModel->getAll($this->_userId);
+        $data = [];
+
+        foreach ($users as $user) {
+            $temp = [];
+            $temp[] = $user->id;
+            $temp[] = $user->email;
+            $temp[] = $user->name;
+            $temp[] = $user->surname;
+            $temp[] = $this->load->view('actions/user_actions', [], true);
+            $data[] = $temp;
+            unset($temp);
+        }
+
         $this->_ajaxResponse([
-            'user' => $this->UsersModel->get($this->_userId)
+            'data' => $data
         ]);
     }
 
 
-    public function update() {
+    public function update($userId) {
         if($this->input->post()) {
 
             $params = [
                 'name' => $this->input->post('name', true),
-                'surname' => $this->input->post('surname', true)
+                'surname' => $this->input->post('surname', true),
+                'type' => $this->input->post('type', true)
             ];
 
             if(trim($this->input->post("password", true)) != '') {
@@ -52,7 +68,7 @@ class Profile extends MY_Controller {
             }
 
             if(!isset($response)) {
-                $result = $this->UsersModel->update($this->_userId, $params);
+                $result = $this->UsersModel->update($userId, $params);
                 if ($result) {
                     $response = ['status' => true];
                 } else {

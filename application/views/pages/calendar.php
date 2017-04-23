@@ -10,4 +10,6 @@
 
 <?php $this->load->view("modals/profile_form");?>
 
+<?php $this->load->view("modals/manage-users");?>
+
 <script type="text/javascript" src="<?php echo base_url()?>js/calendar.js"></script>

@@ -1,0 +1,1 @@
+<a href="#" class="btn btn-primary">Edit</a>&nbsp;&nbsp;<a href="#" class="btn btn-success">Events</a>&nbsp;&nbsp;<a href="#" class="btn btn-danger" onClick='javascript:return confirm("Are you sure to Delete?")'>Delete</a>

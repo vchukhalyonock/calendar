@@ -147,6 +147,31 @@ class UsersModel extends MY_Model {
     }
 
 
+    public function getAll($currentUser = null) {
+        $this->db
+            ->select("
+                id,
+                email,
+                name,
+                surname,
+                type
+            ")
+            ->from($this->_usersTable);
+
+        if(!is_null($currentUser))
+            $this->db->where(['id !=' => intval($currentUser)]);
+
+        try {
+            $res = $this->db->get();
+        } catch (Exception $e) {
+            log_message("debug", "UsersModel::getAll : " . $e->getMessage());
+            return false;
+        }
+
+        return $res->result();
+    }
+
+
     public function getUsersTable() {
         return $this->_usersTable;
     }
