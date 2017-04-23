@@ -1,1 +1,1 @@
-<a href="#" class="btn btn-primary">Edit</a>&nbsp;&nbsp;<a href="#" class="btn btn-success">Events</a>&nbsp;&nbsp;<a href="<?php echo site_url('/users/delete/' . $user->id)?>" class="btn btn-danger deleteUserLink">Delete</a>
+<a href="<?php echo site_url('/users/get/' . $user->id)?>" class="btn btn-primary editUserLink">Edit</a>&nbsp;&nbsp;<a href="#" class="btn btn-success">Events</a>&nbsp;&nbsp;<a href="<?php echo site_url('/users/delete/' . $user->id)?>" class="btn btn-danger deleteUserLink">Delete</a>

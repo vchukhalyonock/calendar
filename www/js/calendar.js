@@ -246,23 +246,38 @@ $(document).ready(function() {
     });
 
 
-    $('#manageUsersTable').dataTable({
+    var dTable = $('#manageUsersTable').dataTable({
         ajax : '/users/'
     });
 
-   /* $('.deleteUserLink').each().on("click", function (e) {
-        alert("test");
-        e.preventDefault();
-    });*/
-   
-   /*$('.deleteUserLink').each(function (index, obj) {
-       obj.click(function (e) {
-           alert('test');
-           e.preventDefault();
-       })
-   });*/
-    
 
+    $('#userProfileForm').validator().on("submit", function (e) {
+        if (!e.isDefaultPrevented()) {
+            $.ajax({
+                url: '/users/update/' + $('#userProfileId').val(),
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    name: $('#userProfileName').val(),
+                    surname: $('#userProfileSurname').val(),
+                    password: $('#userProfilePassword').val(),
+                    confirm_password : $("#userProfileConfirmPassword").val(),
+                    type : $('#userProfileType').val()
+                },
+                success: function (res) {
+                    if (res.status) {
+                        $('#userProfileModal').modal("hide");
+                        dTable.api().ajax.reload();
+                    } else {
+                        if (res.error != undefined) {
+                            $('#userProfileFormHeader').append('<div class="alert alert-danger">' + res.error + '</div>');
+                        }
+                    }
+                }
+            });
+        }
+        e.preventDefault();
+    });
 });
 
 
@@ -287,6 +302,28 @@ function openManageUsers() {
                 }
             });
         }
+        e.preventDefault();
+    });
+    $('.editUserLink').click(function (e) {
+        var url = $(this).attr("href");
+        $('#userProfileModal').modal();
+        $.ajax({
+            url : url,
+            dataType : "json",
+            success : function (res) {
+                if(res) {
+                    $('#userProfileModal').modal();
+                    $('#userProfileName').val(res.user.name);
+                    $('#userProfileSurname').val(res.user.surname);
+                    $('#userProfileId').val(res.user.id);
+
+                    $('#userProfileType option')
+                        .removeAttr('selected')
+                        .filter('[value="' + res.user.type + '"]')
+                        .attr('selected', true);
+                }
+            }
+        });
         e.preventDefault();
     });
 }
