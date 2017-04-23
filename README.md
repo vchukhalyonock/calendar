@@ -5,7 +5,7 @@
 - Configure your web-server to www folder
 - Create database and configure /application/config/database.php
 - Upload dumps from DB folder
-- Change options
+- Change options in /application/config/config.php
  
     $config['base_url'] = 'http://calendar/';
     
