@@ -14,6 +14,7 @@
     to your URL and Reply email address to user invitation.
     
 - That's all
+- Default admin account is email "admin@example.com" with password "admin"
 
 ## P.S.
 In your specification you did not describe about event status and I leave this field as simple text
