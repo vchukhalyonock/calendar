@@ -1,6 +1,8 @@
 <?php
 class Calendar extends MY_Controller {
 
+
+
     public function __construct(){
         parent::__construct();
         $this->_checkAjax();
@@ -31,7 +33,7 @@ class Calendar extends MY_Controller {
             'description' => $this->input->post('description', true),
             'status' => $this->input->post('status', true),
             'color' => $this->input->post('color', true),
-            'userId' => $this->_userId
+            'userId' => $this->_currentUserId
         ];
 
         $eventId = $this->EventsModel->create($params);
@@ -89,7 +91,7 @@ class Calendar extends MY_Controller {
                 'description' => $this->input->post('description', true),
                 'status' => $this->input->post('status', true),
                 'color' => $this->input->post('color', true),
-                'userId' => $this->_userId
+                'userId' => $this->_currentUserId
             ];
         }
 
@@ -115,7 +117,7 @@ class Calendar extends MY_Controller {
         $dateFrom = $this->input->post("startDate", true);
         $dateTo = $this->input->post("endDate", true);
 
-        $events = $this->EventsModel->getEvents($this->_userId, $dateFrom, $dateTo);
+        $events = $this->EventsModel->getEvents($this->_currentUserId, $dateFrom, $dateTo);
 
         $this->_ajaxResponse([
             'status' => true,

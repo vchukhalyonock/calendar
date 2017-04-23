@@ -121,5 +121,23 @@ class Auth extends MY_Controller {
             }
         }
     }
+
+
+    public function switchUser($userId) {
+        if($this->_userType == 'admin') {
+            $this->authlib->setSwitchedUser($userId);
+        }
+
+        redirect("/");
+    }
+
+
+    public function switchBack() {
+        if($this->_userType == 'admin') {
+            $this->authlib->unsetSwitchedUser();
+        }
+
+        redirect("/");
+    }
 }
 ?>

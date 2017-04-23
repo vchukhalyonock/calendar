@@ -11,7 +11,8 @@ class Site extends MY_Controller {
             'data' => [
                 'userId' => $this->_userId,
                 'userType' => $this->_userType,
-                'error' => $this->session->flashdata("error") ? $this->session->flashdata("error") : null
+                'error' => $this->session->flashdata("error") ? $this->session->flashdata("error") : null,
+                'currentUser' => $this->_currentUserId
             ]
         ]);
     }

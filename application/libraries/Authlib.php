@@ -70,11 +70,26 @@ class Authlib {
     }
 
     public function unsetCurrentUser() {
+        $this->unsetSwitchedUser();
         $this->_CI->session->unset_userdata('user');
     }
 
     public function getCurrentUser() {
         return $this->_CI->session->userdata("user");
+    }
+
+    public function setSwitchedUser($userId) {
+        $this->_CI->session->set_userdata(['switched' => intval($userId)]);
+    }
+
+
+    public function unsetSwitchedUser() {
+        $this->_CI->session->unset_userdata("switched");
+    }
+
+
+    public function getSwitchedUser() {
+        return $this->_CI->session->userdata("switched");
     }
 }
 ?>

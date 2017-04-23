@@ -3,14 +3,20 @@ class MY_Controller extends CI_Controller {
 
     protected $_userId = null;
     protected $_userType = null;
+    protected $_switchedUser = null;
+    protected $_currentUserId;
 
     public function __construct() {
         parent::__construct();
 
-        if($this->uri->rsegment(1) != 'auth') {
+        if($this->uri->rsegment(1) != 'auth' ||
+            in_array($this->uri->rsegment(2), ['switchUser', 'switchBack'])) {
             if (!$this->_checkAuth() && $this->uri->rsegment(1) != 'site' && $this->uri->rsegment(2) != 'index')
                 redirect('/');
         }
+
+        $this->_switchedUser = $this->authlib->getSwitchedUser() ? $this->authlib->getSwitchedUser() : null;
+        $this->_currentUserId = is_null($this->_switchedUser) ? $this->_userId : $this->_switchedUser;
     }
 
     private function _checkAuth() {
