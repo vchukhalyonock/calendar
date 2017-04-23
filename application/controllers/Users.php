@@ -19,7 +19,7 @@ class Users extends MY_Controller {
             $temp[] = $user->email;
             $temp[] = $user->name;
             $temp[] = $user->surname;
-            $temp[] = $this->load->view('actions/user_actions', [], true);
+            $temp[] = $this->load->view('actions/user_actions', ['user' => $user], true);
             $data[] = $temp;
             unset($temp);
         }
@@ -81,6 +81,12 @@ class Users extends MY_Controller {
 
             $this->_ajaxResponse($response);
         }
+    }
+
+    public function delete($userId) {
+        $this->_ajaxResponse([
+            'status' => $this->UsersModel->delete($userId)
+        ]);
     }
 }
 ?>

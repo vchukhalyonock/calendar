@@ -250,4 +250,43 @@ $(document).ready(function() {
         ajax : '/users/'
     });
 
+   /* $('.deleteUserLink').each().on("click", function (e) {
+        alert("test");
+        e.preventDefault();
+    });*/
+   
+   /*$('.deleteUserLink').each(function (index, obj) {
+       obj.click(function (e) {
+           alert('test');
+           e.preventDefault();
+       })
+   });*/
+    
+
 });
+
+
+function openManageUsers() {
+    $('#manageUsersModal').modal();
+    $('.deleteUserLink').click(function (e) {
+        var url = $(this).attr("href");
+        var table = $('#manageUsersTable').DataTable();
+        var aObj = $(this);
+        var result = confirm("Are you sure?");
+        if(result) {
+            $.ajax({
+                url: url,
+                dataType: "json",
+                success: function (res) {
+                    if (res.status) {
+                        table
+                            .row(aObj.parents('tr'))
+                            .remove()
+                            .draw();
+                    }
+                }
+            });
+        }
+        e.preventDefault();
+    });
+}
