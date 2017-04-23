@@ -31,7 +31,7 @@
                  true);
 
              $this->email
-                 ->from("noreply@weday.com.ua")
+                 ->from($this->config->item("reply_email"))
                  ->to($this->input->post("email", true))
                  ->subject("Invite to calendar")
                  ->message($message);

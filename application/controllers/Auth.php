@@ -72,7 +72,8 @@ class Auth extends MY_Controller {
                     'data' => [
                         'code' => $this->uri->rsegment(3),
                         'userId' => $this->_userId,
-                        'userType' => $this->_userType
+                        'userType' => $this->_userType,
+                        'currentUser' => $this->_currentUserId
                     ]
                 ]);
             }

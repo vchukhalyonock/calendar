@@ -1,9 +1,9 @@
 <?php
 
 $config['useragent'] = "CodeIgniter Calendar";
-$config['protocol'] = 'html';
+$config['protocol'] = 'mail';
 $config['mailpath'] = '/usr/sbin/sendmail';
 $config['charset'] = 'utf-8';
 $config['wordwrap'] = TRUE;
-$config['mailtype'] = 'text';
+$config['mailtype'] = 'html';
 ?>
