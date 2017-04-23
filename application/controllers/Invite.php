@@ -18,7 +18,8 @@
          $userId = $this->UsersModel->create([
              'email' => $email,
              'password' => "*",
-             'registrationCode' => $code
+             'registrationCode' => $code,
+             'type' => 'user'
          ]);
 
          if($userId) {

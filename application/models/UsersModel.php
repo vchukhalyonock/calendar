@@ -61,7 +61,7 @@ class UsersModel extends MY_Model {
         try {
             $insParams = $this->_dbValidator($params, true);
         } catch (Exception $e) {
-            log_message("debug", "UsersModel::update : " . $e->getMessage());
+            log_message("debug", "UsersModel::update validate : " . $e->getMessage());
             return false;
         }
 
@@ -115,6 +115,31 @@ class UsersModel extends MY_Model {
                 ->get();
         } catch (Exception $e) {
             log_message("debug", "UsersModel::get : " . $e->getMessage());
+            return false;
+        }
+
+        return $res->row();
+    }
+
+
+    public function getByCode($code) {
+        try {
+            $res = $this->db
+                ->select("
+                    id,
+                    email,
+                    password,
+                    name,
+                    surname,
+                    type,
+                    registrationCode
+                    ")
+                ->from($this->_usersTable)
+                ->where('registrationCode', strval($code))
+                ->limit(1)
+                ->get();
+        } catch (Exception $e) {
+            log_message("debug", "UsersModel::getByCode : " . $e->getMessage());
             return false;
         }
 
