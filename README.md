@@ -1,6 +1,6 @@
 # calendar
 
-##Installation
+## Installation
 
 - Configure your web-server to www folder
 - Create database and configure /application/config/database.php
@@ -15,6 +15,6 @@
     
 - That's all
 
-##P.S.
+## P.S.
 In your specification you did not describe about event status and I leave this field as simple text
 
