@@ -31,14 +31,12 @@ $(document).ready(function() {
 
     $('#eventForm').validator().on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
-            var url;
+            var url = '/calendar/createEvent/';
             var id = null;
-            if($('#eventId')) {
+            if($('#eventId').length > 0) {
                 id = $('#eventId').val();
                 url = '/calendar/updateEvent/' + id;
                 $('#eventId').remove();
-            } else {
-                url = '/calendar/createEvent';
             }
 
             $.ajax({
@@ -175,6 +173,7 @@ $(document).ready(function() {
                     var events = [];
 
                     if(eventData.status) {
+                        $('#calendar').fullCalendar('removeEvents');
                         $.map(eventData.events, function (r) {
                             events.push({
                                 id: r.id,
@@ -194,6 +193,7 @@ $(document).ready(function() {
         eventClick : function (event) {
             $('#myModal').modal();
             $('#deleteEvent').removeClass("hidden");
+            $('#eventId').remove();
             $('#eventForm').append('<input  type="hidden" name="id" id="eventId" value="' + event.id + '"/>');
             $('#datetimepickerFrom').data("DateTimePicker").date(event.start);
             $('#datetimepickerTo').data("DateTimePicker").date(event.end);
