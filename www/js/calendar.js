@@ -6,6 +6,10 @@ $(document).ready(function() {
     $('#datetimepickerTo').datetimepicker({
         format : "DD/MM/YYYY HH:mm"
     });
+    $('#datetimepickerFrom').on("dp.change", function (e) {
+        if(e.date != e.oldDate)
+            $('#datetimepickerTo').data("DateTimePicker").options({minDate : e.date});
+    });
     $('#cp2').colorpicker();
 
     $('#inviteForm').validator().on('submit', function (e) {
@@ -129,6 +133,7 @@ $(document).ready(function() {
             $('#myModal').modal();
             $('#datetimepickerFrom').data("DateTimePicker").date(date);
             $('#datetimepickerTo').data("DateTimePicker").date(date);
+            $('#datetimepickerTo').data("DateTimePicker").options({minDate : date});
 
         },
         eventDrop : function (event) {
