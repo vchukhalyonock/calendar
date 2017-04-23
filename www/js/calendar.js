@@ -202,6 +202,47 @@ $(document).ready(function() {
             $('#eventStatus').val(event.status);
             $('#eventColor').val(event.color);
         }
-    })
+    });
+    
+    
+    $('#profileLink').click(function (e) {
+        $.ajax({
+            url : "/profile/",
+            dataType : "json",
+            success : function (res) {
+                $('#profileModal').modal();
+                $('#profileName').val(res.user.name);
+                $('#profileSurname').val(res.user.surname);
+            }
+        });
+
+        e.preventDefault();
+    });
+
+    $('#profileForm').validator().on("submit", function (e) {
+        if (!e.isDefaultPrevented()) {
+            $.ajax({
+                url: '/profile/update',
+                dataType: 'json',
+                method: 'post',
+                data: {
+                    name: $('#profileName').val(),
+                    surname: $('#profileSurname').val(),
+                    password: $('#profilePassword').val(),
+                    confirm_password : $("#profileConfirmPassword").val()
+                },
+                success: function (res) {
+                    if (res.status) {
+                        $('#profileModal').modal("hide");
+                    } else {
+                        if (res.error != undefined) {
+                            $('#profileFormHeader').append('<div class="alert alert-danger">' + res.error + '</div>');
+                        }
+                    }
+                }
+            });
+        }
+        e.preventDefault();
+    });
 
 });

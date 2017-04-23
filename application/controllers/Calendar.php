@@ -3,9 +3,8 @@ class Calendar extends MY_Controller {
 
     public function __construct(){
         parent::__construct();
+        $this->_checkAjax();
         $this->load->model("EventsModel");
-        if(!$this->input->is_ajax_request())
-            redirect('/');
     }
 
 

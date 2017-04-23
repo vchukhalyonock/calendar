@@ -3,8 +3,7 @@
 
      public function __construct() {
          parent::__construct();
-         if(!$this->input->is_ajax_request())
-             redirect("/");
+         $this->_checkAjax();
 
          $this->load->library('email');
          $this->load->model("UsersModel");

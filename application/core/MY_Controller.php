@@ -39,5 +39,11 @@ class MY_Controller extends CI_Controller {
                 )
             );
     }
+
+
+    protected function _checkAjax() {
+        if(!$this->input->is_ajax_request())
+            redirect('/');
+    }
 }
 ?>

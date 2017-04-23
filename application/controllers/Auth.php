@@ -44,7 +44,7 @@ class Auth extends MY_Controller {
                     $this->form_validation
                         ->set_rules(
                             "confirm-password",
-                            "Confitm Password",
+                            "Confirm Password",
                             'required|min_length[3]|max_length[32]|matches[password]'
                         );
 
@@ -95,7 +95,7 @@ class Auth extends MY_Controller {
                 $this->form_validation
                     ->set_rules(
                         "confirm-password",
-                        "Confitm Password",
+                        "Confirm Password",
                         'required|min_length[3]|max_length[32]|matches[password]'
                     );
 
